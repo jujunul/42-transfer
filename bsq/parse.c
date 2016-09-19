@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/16 12:15:12 by juthierr          #+#    #+#             */
-/*   Updated: 2016/09/19 15:39:03 by juthierr         ###   ########.fr       */
-/*   Updated: 2016/09/16 15:26:57 by juthierr         ###   ########.fr       */
+/*   Created: 2016/09/19 15:39:16 by juthierr          #+#    #+#             */
+/*   Updated: 2016/09/19 16:47:54 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lib.h"
 
-void		*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	int			i;
 	char		*des;
 	const char	*sr;
-
 	i = 0;
 	des = dest;
 	sr = src;
@@ -30,19 +28,42 @@ void		*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-void		*ft_realloc(void *old, int oldsize, int newsize)
+void *ft_realloc(void *old, int oldsize, int newsize)
 {
 	void *nex;
 
 	nex = (void *)malloc(newsize);
 	if (nex == NULL)
-		return (NULL);
+	{
+		return NULL;
+	}
 	if (old != NULL)
 	{
 		ft_memcpy(nex, old, oldsize);
 		free(old);
 	}
-	return (nex);
+
+	return nex;
+}
+
+int			ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void		ft_puterr(char *str, int i)
+{
+	write(i, str, ft_strlen(str));
+}
+
+void		ft_printerror(void)
+{
+	ft_puterr("map error\n", 2);
 }
 
 int			ft_parsingpara(char *str)
@@ -62,34 +83,28 @@ int			ft_parsingpara(char *str)
 		para[j] = str[j];
 		j++;
 	}
-	t_infomap->line = para;
+	start_params(para);
 	return (i);
 }
 
-
-
-
-int			main(int ac ,char **av)
+int			main(int ac, char **av)
 {
 	int		fd;
 	int		ret;
+	char	*str;
 	int		i;
-	char		*str;
-	int k;
-	char *para;
 
-	k = 0;
+	i = 1;
 	fd = 0;
 	ret = 0;
-	i = 1;
-	if (!(str = (char*)malloc(sizeof(char) * BUFF)))
+	if(!(str = (char*)malloc(sizeof(char) * BUFF)))
 		return (0);
-	if (ac > 1)
+	if (ac < 1)
 	{
 		while (i < ac)
 		{
-			if ((fd = open(av[i], O_RDONLY)) < 0)
-				ft_printerror(av, i, errno);
+			f ((fd = open(av[i], O_RDONLY)) < 0)
+				ft_printerror();
 			while((ret = read(fd, str, k * BUFF))  > 0)
 			{
 				if(!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
@@ -97,7 +112,7 @@ int			main(int ac ,char **av)
 				k++;
 				str = str + ft_parsingpara(str);
 			}
-			i++;
+			i++;	
 		}
 	}
 }
