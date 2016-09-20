@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 12:37:45 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/19 12:43:30 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/20 13:45:18 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,9 @@ typedef struct		s_infomap
 	int				nblines;
 }					t_infomap;
 
+typedef struct		s_bg
+{
+	int				i;
+	int				size;
+}					t_bg;
 #endif
