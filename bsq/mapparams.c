@@ -6,14 +6,14 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 13:36:15 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/19 13:45:45 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/20 17:12:28 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "infomap.h"
+#include "ft_lib.h"
 #include <stdlib.h>
 
-int		bsqatoi(char *str, int size)
+int			bsqatoi(char *str, int size)
 {
 	int		res;
 
@@ -26,7 +26,7 @@ int		bsqatoi(char *str, int size)
 	return ((size != 0) ? -1 : res);
 }
 
-void	map_params(t_infomap *infomap)
+void		map_params(t_infomap *infomap)
 {
 	int			len;
 
@@ -42,13 +42,13 @@ void	map_params(t_infomap *infomap)
 	infomap->nblines = bsqatoi(infomap->line, len);
 }
 
-void	start_params(char *para)
+t_infomap	*start_params(char *para)
 {
 	t_infomap	*infomap;
 
 	if (!(infomap = malloc(sizeof(t_infomap))))
-		return (0);
-	if (ac > 0)
-		infomap->line = para;
+		ft_puterr("Mallocerror", 2);
+	infomap->line = para;
 	map_params(infomap);
+	return (infomap);
 }

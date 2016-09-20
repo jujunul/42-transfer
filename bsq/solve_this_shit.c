@@ -6,12 +6,13 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:16:56 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/20 14:20:12 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/20 22:11:18 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "infomap.h"
+#include "ft_lib.h"
+#include <stdio.h>
 
 void	ft_putchar(char c)
 {
@@ -20,18 +21,21 @@ void	ft_putchar(char c)
 
 void	put_square(int *bsq, int columns, t_bg *bg)
 {
-	int i;
+	int itop;
+	int x;
+	int y;
 
-	i = 0;
-	while (i < bg->size && bg->size > 0)
+	itop = bg->i - (columns * (bg->size - 1)) - (2 * bg->size - 1) + 1;
+	x = 0;
+	while (x < bg->size)
 	{
-		bsq[bg->i - i] = -4;
-		if (i > 0)
+		y = 0;
+		while (y < bg->size)
 		{
-			bsq[bg->i - columns * i] = -4;
-			bsq[bg->i - columns * i - i] = -4;
+			bsq[itop + x + (y * (columns + 1))] = -4;
+			y++;
 		}
-		i++;
+		x++;
 	}
 }
 
@@ -39,7 +43,7 @@ void	display(int *bsq, int columns, t_infomap *im)
 {
 	int i;
 
-	i = columns + 1;
+	i = columns + 2;
 	while (bsq[i] != -3)
 	{
 		if (bsq[i] > 0)
@@ -62,17 +66,21 @@ int		square_capacity(int *bsq, int i, int columns)
 {
 	int min;
 
-	min = bsq[i - columns - 1];
-	if (bsq[i - columns] < min)
-		min = bsq[i - columns];
+	min = bsq[i - columns - 2];
+	if (bsq[i - columns - 1] < min)
+		min = bsq[i - columns - 1];
 	if (bsq[i - 1] < min)
 		min = bsq[i - 1];
 	return (min + 1);
 }
 
-void	solve_bsq(int *bsq, t_bg *bg, int columns)
+void	solve_bsq(int *bsq, int columns, t_infomap *im)
 {
-	int i;
+	int		i;
+	t_bg 	*bg;
+
+	bg->size = 0;
+	bg->i = 0;
 
 	i = columns + 1;
 	while (bsq[i] != -3)
@@ -88,4 +96,6 @@ void	solve_bsq(int *bsq, t_bg *bg, int columns)
 		}
 		i++;
 	}
+	put_square(bsq, columns, bg);
+	display(bsq, columns, im);
 }
