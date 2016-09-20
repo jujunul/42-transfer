@@ -16,10 +16,10 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <fnctl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <fcntl.h>
 
 # define BUFF (1024)
-onfiguration->Configurer KDevelop->Formatteur de sources->Langage C->Artistic Style->clique sur "ANSI"->Clique sur nouveau->Modifier
+
 #endif

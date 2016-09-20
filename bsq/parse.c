@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_lib.h"
+#include "infomap.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
@@ -87,12 +88,30 @@ int			ft_parsingpara(char *str)
 	return (i);
 }
 
+int				**ft_parsingtab(int *tab, char *str, t_infomap *im)
+{
+	int i;
+	int j;
+	int len;
+
+	i = 0;
+	
+	if (!(tab = (int *)malloc(sizeof(int) * len)))
+		return(0);
+	while (str[i])
+	{
+		if(str[i] == im->empty)
+	}
+}
+
 int			main(int ac, char **av)
 {
 	int		fd;
 	int		ret;
 	char	*str;
 	int		i;
+	int		k;
+	int		*tab;
 
 	i = 1;
 	fd = 0;
@@ -103,7 +122,8 @@ int			main(int ac, char **av)
 	{
 		while (i < ac)
 		{
-			f ((fd = open(av[i], O_RDONLY)) < 0)
+			k = 1;
+			if ((fd = open(av[i], O_RDONLY)) < 0)
 				ft_printerror();
 			while((ret = read(fd, str, k * BUFF))  > 0)
 			{
@@ -111,8 +131,9 @@ int			main(int ac, char **av)
 					return (0);
 				k++;
 				str = str + ft_parsingpara(str);
+				tab = ft_parsingtab(tab, str, k);
 			}
-			i++;	
+			i++;
 		}
 	}
 }
