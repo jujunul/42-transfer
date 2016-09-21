@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 15:39:16 by juthierr          #+#    #+#             */
-/*   Updated: 2016/09/21 15:00:56 by juthierr         ###   ########.fr       */
+/*   Updated: 2016/09/21 17:24:35 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		ft_puterr(char *str, int i)
 void		ft_printerror(void)
 {
 	ft_puterr("map error\n", 2);
+	break;
 }
 
 char		*ft_parsingpara(char *str)
@@ -126,11 +127,27 @@ int				*ft_parsingtab(char *str, t_infomap *im, int columns)
 int			ft_columns(char *str)
 {
 	int i;
-	
+	int stock;
+	int j;
+
 	i = 0;
+	j = 0;
 	while (str[i] != '\n')
 		i++;
-	return (++i);
+	stock = i;
+	while (str[j])
+	{
+		i = 0;
+		while (str[j] != '\n' && str[j])
+		{
+			j++;
+			i++;
+		}
+		if (stock != i)
+			ft_printerror();
+		j++;
+	}
+	return (++stock);
 }
 
 int			main(int ac, char **av)
@@ -180,6 +197,30 @@ int			main(int ac, char **av)
 			tab = ft_parsingtab(str, im, columns);
 			solve_bsq(tab, columns, im);
 			i++;
+			if (i < ac)
+				write(1, "\n", 1);
 		}
+	}
+	else
+	{
+		while((ret = read(fd, buff, BUFF)) != 0)
+		{
+			j = 0;
+			if(!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
+				return (0);
+			while (j < ret)
+			{
+				str[len] = buff[j];
+				len++;
+				j++;
+			}
+			k++;
+		}
+		str[len] = '\0';
+		im = start_params(ft_parsingpara(str));
+		str = str + (ft_strlen(ft_parsingpara(str)) + 1);
+		columns = ft_columns(str);
+		tab = ft_parsingtab(str, im, columns);
+		solve_bsq(tab, columns, im);
 	}
 }
