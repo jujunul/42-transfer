@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 21:10:24 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 22:15:19 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 22:41:23 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,16 @@ void		fdone(int k)
 	solve_the_fucking_shit(str);
 }
 
-void		fdelse(int ac, char **av, int i, int k)
+void		fdelse(int fd, char **av, int i, int k)
 {
 	int		len;
 	int		ret;
 	char	buff[BUFF];
 	int		j;
 	char	*str;
-	int		fd;
 
 	str = 0;
 	len = 0;
-	fd = 0;
 	ret = 1;
 	if (!(str = (char*)malloc(sizeof(char) * BUFF)))
 		return ;
@@ -85,7 +83,9 @@ int			main(int ac, char **av)
 {
 	int			i;
 	int			k;
+	int			fd;
 
+	fd = 0;
 	i = 1;
 	k = 1;
 	g_cani = 1;
@@ -93,7 +93,7 @@ int			main(int ac, char **av)
 	{
 		while (i < ac)
 		{
-			fdelse(ac, av, i, k);
+			fdelse(fd, av, i, k);
 			i++;
 			if (i < ac)
 				write(1, "\n", 1);
