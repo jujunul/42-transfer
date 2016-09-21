@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 15:39:16 by juthierr          #+#    #+#             */
-/*   Updated: 2016/09/20 22:39:51 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 15:00:56 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void *ft_realloc(void *old, int oldsize, int newsize)
 		free(old);
 	}
 
-	return nex;
+	return (nex);
 }
 
 int			ft_strlen(char *str)
@@ -143,10 +143,14 @@ int			main(int ac, char **av)
 	int			*tab;
 	t_infomap	*im;
 	int			columns;
+	char		buff[BUFF];
+	int			len;
+	int			j;
 
 	i = 1;
 	fd = 0;
 	ret = 1;
+	len = 0;
 	if(!(str = (char*)malloc(sizeof(char) * BUFF)))
 		return (0);
 	if (ac > 1)
@@ -156,17 +160,25 @@ int			main(int ac, char **av)
 			k = 1;
 			if ((fd = open(av[i], O_RDONLY)) < 0)
 				ft_printerror();
-			while((ret = read(fd, str, k * BUFF)) > 0)
+			while((ret = read(fd, buff, BUFF)) != 0)
 			{
+				j = 0;
 				if(!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
 					return (0);
+				while (j < ret)
+				{
+					str[len] = buff[j];
+					len++;
+					j++;
+				}
 				k++;
-				im = start_params(ft_parsingpara(str));
-				str = str + ft_strlen(ft_parsingpara(str)) + 1;
-				columns = ft_columns(str);
-				tab = ft_parsingtab(str, im, columns);
-				solve_bsq(tab, columns, im);
 			}
+			str[len] = '\0';
+			im = start_params(ft_parsingpara(str));
+			str = str + (ft_strlen(ft_parsingpara(str)) + 1);
+			columns = ft_columns(str);
+			tab = ft_parsingtab(str, im, columns);
+			solve_bsq(tab, columns, im);
 			i++;
 		}
 	}

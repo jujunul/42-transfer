@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:16:56 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/20 22:11:18 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:41:23 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int		square_capacity(int *bsq, int i, int columns)
 void	solve_bsq(int *bsq, int columns, t_infomap *im)
 {
 	int		i;
+	t_bg	truc;
 	t_bg 	*bg;
 
+	bg = &truc;
 	bg->size = 0;
 	bg->i = 0;
 
