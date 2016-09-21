@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:16:56 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 14:41:23 by juthierr         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:06:50 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,34 @@ void	put_square(int *bsq, int columns, t_bg *bg)
 void	display(int *bsq, int columns, t_infomap *im)
 {
 	int i;
+	char *str;
+	int j;
+	int len;
 
+	len = (columns) * im->nblines;
+	j = 0;	
+	if (!(str = malloc(sizeof(char) * len)))
+		return ;
 	i = columns + 2;
 	while (bsq[i] != -3)
 	{
 		if (bsq[i] > 0)
-			ft_putchar(im->empty);
+			str[j] = im->empty;
 		if (bsq[i] == 0)
-			ft_putchar(im->obs);
+			str[j] = im->obs;
 		if (bsq[i] == -2)
 		{
-			ft_putchar('\n');
+			str[j] = '\n';
 			i++;
 		}
 		if (bsq[i] == -4)
-			ft_putchar(im->full);
+			str[j] = im->full;
 		i++;
+		j++;
 	}
-	ft_putchar('\n');
+	str[j] = '\n';
+	str[++j] = '\0';
+	write(1, str, len);
 }
 
 int		square_capacity(int *bsq, int i, int columns)
@@ -98,6 +108,8 @@ void	solve_bsq(int *bsq, int columns, t_infomap *im)
 		}
 		i++;
 	}
+	if (bg->size == 0)
+		ft_printerror();
 	put_square(bsq, columns, bg);
 	display(bsq, columns, im);
 }
