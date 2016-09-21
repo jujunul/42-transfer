@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 15:39:16 by juthierr          #+#    #+#             */
-/*   Updated: 2016/09/21 18:34:28 by juthierr         ###   ########.fr       */
+/*   Updated: 2016/09/21 20:37:41 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,29 +124,39 @@ int				*ft_parsingtab(char *str, t_infomap *im, int columns)
 	return (tab);
 }
 
-int			ft_columns(char *str)
+int			ft_columns(char *str, t_infomap *im)
 {
 	int i;
 	int stock;
 	int j;
+	int l;
 
 	i = 0;
 	j = 0;
-	while (str[i] != '\n')
+	l = 0;
+	while (str[i] != '\n' && str[i] && (str[i] == im->empty ||
+				str[i] == im->obs || str[i] == im->full))
 		i++;
 	stock = i;
 	while (str[j])
 	{
 		i = 0;
-		while (str[j] != '\n' && str[j])
+		while (str[j] != '\n' && str[j] && (str[j] == im->empty ||
+					str[j] == im->obs || str[j] == im->full))
 		{
 			j++;
 			i++;
 		}
 		if (stock != i)
+		{
 			ft_printerror();
+			break;
+		}
 		j++;
+		l++;
 	}
+	if (l != im->nblines && i == stock)
+		ft_printerror();
 	return (++stock);
 }
 
@@ -167,15 +177,17 @@ int			main(int ac, char **av)
 	i = 1;
 	fd = 0;
 	ret = 1;
-	len = 0;
-	if(!(str = (char*)malloc(sizeof(char) * BUFF)))
-		return (0);
+	g_cani = 1;
 	if (ac > 1)
 	{
 		while (i < ac)
 		{
-			g_cani = 1;
+			if(!(str = (char*)malloc(sizeof(char) * BUFF)))
+				return (0);
+			len = 0;
 			k = 1;
+			fd = 0;
+			ret = 1;
 			if ((fd = open(av[i], O_RDONLY)) < 0)
 				ft_printerror();
 			while((ret = read(fd, buff, BUFF)) != 0)
@@ -194,7 +206,7 @@ int			main(int ac, char **av)
 			str[len] = '\0';
 			im = start_params(ft_parsingpara(str));
 			str = str + (ft_strlen(ft_parsingpara(str)) + 1);
-			columns = ft_columns(str);
+			columns = ft_columns(str, im);
 			tab = ft_parsingtab(str, im, columns);
 			solve_bsq(tab, columns, im);
 			i++;
@@ -204,6 +216,8 @@ int			main(int ac, char **av)
 	}
 	else
 	{
+		len = 0;
+		k = 1;
 		while((ret = read(fd, buff, BUFF)) != 0)
 		{
 			j = 0;
@@ -220,8 +234,9 @@ int			main(int ac, char **av)
 		str[len] = '\0';
 		im = start_params(ft_parsingpara(str));
 		str = str + (ft_strlen(ft_parsingpara(str)) + 1);
-		columns = ft_columns(str);
+		columns = ft_columns(str, im);
 		tab = ft_parsingtab(str, im, columns);
 		solve_bsq(tab, columns, im);
+		return (0);
 	}
 }
