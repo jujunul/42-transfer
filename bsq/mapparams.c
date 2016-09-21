@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 13:36:15 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 22:01:08 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 22:44:29 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		map_params(t_infomap *im)
 	len = 0;
 	while (im->line[len])
 		len++;
-	if (len < 4)
+	if (len < 4 && g_cani == 1)
 		ft_printerror();
 	im->full = im->line[--len];
 	im->obs = im->line[--len];
