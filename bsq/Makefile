@@ -6,15 +6,15 @@
 #    By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/16 13:09:32 by juthierr          #+#    #+#              #
-#    Updated: 2016/09/21 14:40:16 by juthierr         ###   ########.fr        #
+#    Updated: 2016/09/21 22:04:50 by juthierr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = bsq
 
-CODE = parse.c mapparams.c solve_this_shit.c
+CODE = main.c mapparams.c solve_this_shit.c impot.c alloc.c
 
-OBJET = parse.o mapparams.o solve_this_shit.o
+OBJET = main.o mapparams.o solve_this_shit.o impot.o alloc.o
 
 all: $(NAME)
 
