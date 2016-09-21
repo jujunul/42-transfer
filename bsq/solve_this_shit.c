@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:16:56 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 18:06:50 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:15:16 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	display(int *bsq, int columns, t_infomap *im)
 	int j;
 	int len;
 
-	len = (columns) * im->nblines;
+	len = columns * im->nblines;
 	j = 0;	
 	if (!(str = malloc(sizeof(char) * len)))
 		return ;
