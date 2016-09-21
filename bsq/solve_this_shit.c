@@ -6,13 +6,14 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:16:56 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 18:42:52 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:52:13 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_lib.h"
 #include <stdio.h>
+
 int		g_cani;
 
 void	put_square(int *bsq, int columns, t_bg *bg)
@@ -37,20 +38,17 @@ void	put_square(int *bsq, int columns, t_bg *bg)
 
 void	display(int *bsq, int columns, t_infomap *im)
 {
-	int i;
-	char *str;
-	int j;
-	int len;
+	int		i;
+	char	*str;
+	int		j;
 
-	len = columns * im->nblines;
-	j = 0;	
-	if (!(str = malloc(sizeof(char) * len)))
+	j = 0;
+	if (!(str = malloc(sizeof(char) * columns * im->nblines)))
 		return ;
 	i = columns + 2;
 	while (bsq[i] != -3)
 	{
-		if (bsq[i] > 0)
-			str[j] = im->empty;
+		str[j] = im->empty;
 		if (bsq[i] == 0)
 			str[j] = im->obs;
 		if (bsq[i] == -2)
@@ -58,14 +56,13 @@ void	display(int *bsq, int columns, t_infomap *im)
 			str[j] = '\n';
 			i++;
 		}
-		if (bsq[i] == -4)
+		if (bsq[i++] == -4)
 			str[j] = im->full;
-		i++;
 		j++;
 	}
 	str[j] = '\n';
 	str[++j] = '\0';
-	write(1, str, len);
+	write(1, str, columns * im->nblines);
 }
 
 int		square_capacity(int *bsq, int i, int columns)
@@ -84,26 +81,22 @@ void	solve_bsq(int *bsq, int columns, t_infomap *im)
 {
 	int		i;
 	t_bg	truc;
-	t_bg 	*bg;
+	t_bg	*bg;
 
 	bg = &truc;
 	bg->size = 0;
 	bg->i = 0;
-
 	i = columns + 1;
 	while (bsq[i] != -3)
-	{
-		if (bsq[i] == -1)
+		if (bsq[i++] == -1)
 		{
-			bsq[i] = square_capacity(bsq, i, columns);
-			if (bsq[i] > bg->size)
+			bsq[i - 1] = square_capacity(bsq, i - 1, columns);
+			if (bsq[i - 1] > bg->size)
 			{
-				bg->size = bsq[i];
-				bg->i = i;
+				bg->size = bsq[i - 1];
+				bg->i = i - 1;
 			}
 		}
-		i++;
-	}
 	if (bg->size == 0)
 		ft_printerror();
 	if (g_cani)

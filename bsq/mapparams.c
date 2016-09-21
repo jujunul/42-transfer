@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 13:36:15 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/20 17:12:28 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:52:23 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		map_params(t_infomap *infomap)
 		len++;
 	if (len < 4)
 		exit(1);
-	//todo error
 	infomap->full = infomap->line[--len];
 	infomap->obs = infomap->line[--len];
 	infomap->empty = infomap->line[--len];
