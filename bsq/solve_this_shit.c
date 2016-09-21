@@ -6,18 +6,14 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:16:56 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 18:15:16 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:42:52 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_lib.h"
 #include <stdio.h>
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+int		g_cani;
 
 void	put_square(int *bsq, int columns, t_bg *bg)
 {
@@ -110,6 +106,8 @@ void	solve_bsq(int *bsq, int columns, t_infomap *im)
 	}
 	if (bg->size == 0)
 		ft_printerror();
-	put_square(bsq, columns, bg);
-	display(bsq, columns, im);
+	if (g_cani)
+		put_square(bsq, columns, bg);
+	if (g_cani)
+		display(bsq, columns, im);
 }
