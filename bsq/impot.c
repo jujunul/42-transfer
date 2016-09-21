@@ -6,78 +6,86 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 22:05:05 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 22:05:06 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 23:17:53 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lib.h"
 
+void			shitbro(char *str, t_infomap *im, int *tab, int *ij)
+{
+	while (ij[0] <= ij[2])
+	{
+		if (str[ij[1]] == im->empty)
+			tab[ij[0]] = -1;
+		if (str[ij[1]] == im->obs)
+			tab[ij[0]] = 0;
+		if (str[ij[1]] == '\n' && str[ij[1] + 1])
+		{
+			tab[ij[0]++] = -2;
+			tab[ij[0]] = 0;
+		}
+		if (str[ij[1] + 1] == '\0')
+			ij[2] = -1;
+		ij[0]++;
+		ij[1]++;
+	}
+	tab[ij[0] - 1] = -3;
+}
+
 int				*ft_parsingtab(char *str, t_infomap *im, int columns)
 {
-	int i;
 	int *tab;
-	int len;
-	int j;
+	int	ij[3];
 
-	len = (columns + 1) * (im->nblines + 1);
-	i = 0;
-	j = 0;
-	if (!(tab = (int *)malloc(sizeof(int) * len)))
+	ij[0] = 0;
+	ij[1] = 0;
+	ij[2] = (columns + 1) * (im->nblines + 1);
+	if (!(tab = (int *)malloc(sizeof(int) * ij[2])))
 		return (0);
-	while (i < columns + 2)
-		tab[i++] = 0;
-	while (i <= len)
-	{
-		if (str[j] == im->empty)
-			tab[i] = -1;
-		if (str[j] == im->obs)
-			tab[i] = 0;
-		if (str[j] == '\n' && str[j + 1])
-		{
-			tab[i++] = -2;
-			tab[i] = 0;
-		}
-		if (str[j + 1] == '\0')
-			len = -1;
-		j++;
-		i++;
-	}
-	tab[i - 1] = -3;
+	while (ij[0] < columns + 2)
+		tab[ij[0]++] = 0;
+	shitbro(str, im, tab, ij);
 	return (tab);
 }
 
-int			ft_columns(char *str, t_infomap *im)
+int				*normetamer(int *op, char *str, t_infomap *im)
 {
-	int i;
-	int stock;
-	int j;
-	int l;
-
-	i = 0;
-	j = 0;
-	l = 0;
-	while (str[i] != '\n' && str[i] && (str[i] == im->empty ||
-				str[i] == im->obs || str[i] == im->full))
-		i++;
-	stock = i;
-	while (str[j])
+	while (str[op[0]] != '\n' && str[op[0]] && (str[op[0]] == im->empty ||
+				str[op[0]] == im->obs || str[op[0]] == im->full))
+		op[0]++;
+	op[3] = op[0];
+	while (str[op[1]])
 	{
-		i = 0;
-		while (str[j] != '\n' && str[j] && (str[j] == im->empty ||
-					str[j] == im->obs || str[j] == im->full))
+		op[0] = 0;
+		while (str[op[1]] != '\n' && str[op[1]] && (str[op[1]] == im->empty ||
+					str[op[1]] == im->obs || str[op[1]] == im->full))
 		{
-			j++;
-			i++;
+			op[1]++;
+			op[0]++;
 		}
-		if (stock != i && g_cani == 1)
+		if (op[3] != op[0] && g_cani == 1)
 		{
 			ft_printerror();
 			return (0);
 		}
-		j++;
-		l++;
+		op[2]++;
+		op[1]++;
 	}
-	if (l != im->nblines && i == stock && g_cani == 1)
+	return (op);
+}
+
+int				ft_columns(char *str, t_infomap *im)
+{
+	int *op;
+
+	op = (int*)malloc(sizeof(int) * 4);
+	op[0] = 0;
+	op[1] = 0;
+	op[2] = 0;
+	if (!(op = normetamer(op, str, im)))
+		return (0);
+	if (op[2] != im->nblines && op[0] == op[3] && g_cani == 1)
 		ft_printerror();
-	return (++stock);
+	return (++op[3]);
 }
