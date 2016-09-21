@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 22:05:09 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 22:05:11 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 22:46:15 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ int			ft_strlen(char *str)
 
 void		ft_printerror(void)
 {
-	write(2, "map error\n", 10);
-	g_cani = 0;
+	if (g_cani == 1)
+	{
+		write(2, "map error\n", 10);
+		g_cani = 0;
+	}
 }
 
 char		*ft_parsingpara(char *str)
