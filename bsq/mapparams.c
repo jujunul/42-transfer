@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 13:36:15 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 19:16:27 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 20:32:40 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,21 @@ int			bsqatoi(char *str, int size)
 	return ((size != 0) ? -1 : res);
 }
 
-void		map_params(t_infomap *infomap)
+void		map_params(t_infomap *im)
 {
 	int			len;
 
 	len = 0;
-	while (infomap->line[len])
+	while (im->line[len])
 		len++;
 	if (len < 4)
 		ft_printerror();
-	infomap->full = infomap->line[--len];
-	infomap->obs = infomap->line[--len];
-	infomap->empty = infomap->line[--len];
-	infomap->nblines = bsqatoi(infomap->line, len);
+	im->full = im->line[--len];
+	im->obs = im->line[--len];
+	im->empty = im->line[--len];
+	im->nblines = bsqatoi(im->line, len);
+	if (im->full == im->obs || im->obs == im->empty || im->full == im->empty)
+		ft_printerror();
 }
 
 t_infomap	*start_params(char *para)
