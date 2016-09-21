@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 13:36:15 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 18:52:23 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 19:16:27 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		map_params(t_infomap *infomap)
 	while (infomap->line[len])
 		len++;
 	if (len < 4)
-		exit(1);
+		ft_printerror();
 	infomap->full = infomap->line[--len];
 	infomap->obs = infomap->line[--len];
 	infomap->empty = infomap->line[--len];
@@ -46,8 +46,9 @@ t_infomap	*start_params(char *para)
 	t_infomap	*infomap;
 
 	if (!(infomap = malloc(sizeof(t_infomap))))
-		ft_puterr("Mallocerror", 2);
+		ft_printerror();
 	infomap->line = para;
-	map_params(infomap);
+	if (g_cani)
+		map_params(infomap);
 	return (infomap);
 }
