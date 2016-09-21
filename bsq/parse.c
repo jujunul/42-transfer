@@ -6,18 +6,19 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 15:39:16 by juthierr          #+#    #+#             */
-/*   Updated: 2016/09/21 20:56:02 by juthierr         ###   ########.fr       */
+/*   Updated: 2016/09/21 21:08:47 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lib.h"
 #include <stdio.h>
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void		*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	int			i;
 	char		*des;
 	const char	*sr;
+
 	i = 0;
 	des = dest;
 	sr = src;
@@ -29,21 +30,20 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-void *ft_realloc(void *old, int oldsize, int newsize)
+void		*ft_realloc(void *old, int oldsize, int newsize)
 {
 	void *nex;
 
 	nex = (void *)malloc(newsize);
 	if (nex == NULL)
 	{
-		return NULL;
+		return (NULL);
 	}
 	if (old != NULL)
 	{
 		ft_memcpy(nex, old, oldsize);
 		free(old);
 	}
-
 	return (nex);
 }
 
@@ -57,14 +57,9 @@ int			ft_strlen(char *str)
 	return (i);
 }
 
-void		ft_puterr(char *str, int i)
-{
-	write(i, str, ft_strlen(str));
-}
-
 void		ft_printerror(void)
 {
-	ft_puterr("map error\n", 2);
+	write(2, "map error\n", 10);
 	g_cani = 0;
 }
 
@@ -77,7 +72,7 @@ char		*ft_parsingpara(char *str)
 	i = 0;
 	while (str[i] != '\n')
 		i++;
-	if(!(para = (char *)malloc(sizeof(char) * i)))
+	if (!(para = (char *)malloc(sizeof(char) * i)))
 		return (0);
 	j = 0;
 	while (j < i)
@@ -150,7 +145,7 @@ int			ft_columns(char *str, t_infomap *im)
 		if (stock != i)
 		{
 			ft_printerror();
-			break;
+			break ;
 		}
 		j++;
 		l++;
@@ -182,7 +177,7 @@ int			main(int ac, char **av)
 	{
 		while (i < ac)
 		{
-			if(!(str = (char*)malloc(sizeof(char) * BUFF)))
+			if (!(str = (char*)malloc(sizeof(char) * BUFF)))
 				return (0);
 			len = 0;
 			k = 1;
@@ -190,10 +185,10 @@ int			main(int ac, char **av)
 			ret = 1;
 			if ((fd = open(av[i], O_RDONLY)) < 0)
 				ft_printerror();
-			while((ret = read(fd, buff, BUFF)) != 0)
+			while ((ret = read(fd, buff, BUFF)) != 0)
 			{
 				j = 0;
-				if(!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
+				if (!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
 					return (0);
 				while (j < ret)
 				{
@@ -218,10 +213,10 @@ int			main(int ac, char **av)
 	{
 		len = 0;
 		k = 1;
-		while((ret = read(fd, buff, BUFF)) != 0)
+		while ((ret = read(fd, buff, BUFF)) != 0)
 		{
 			j = 0;
-			if(!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
+			if (!(str = ft_realloc(str, k * BUFF, (k + 1) * BUFF)))
 				return (0);
 			while (j < ret)
 			{
