@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 13:36:15 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 20:32:40 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 22:01:08 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void		map_params(t_infomap *im)
 	im->obs = im->line[--len];
 	im->empty = im->line[--len];
 	im->nblines = bsqatoi(im->line, len);
-	if (im->full == im->obs || im->obs == im->empty || im->full == im->empty)
+	if ((im->full == im->obs || im->obs == im->empty || im->full == im->empty)
+			&& g_cani == 1)
 		ft_printerror();
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 21:10:24 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 21:43:30 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 22:01:24 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void		fdone(int k)
 
 	ret = 0;
 	len = 0;
+	str = 0;
+	if (!(str = (char*)malloc(sizeof(char) * BUFF)))
+		return (0);
 	while ((ret = read(0, buff, BUFF)) != 0)
 	{
 		j = 0;
@@ -55,6 +58,7 @@ void		fdelse(int ac, char **av, int i, int k)
 	int		j;
 	char	*str;
 
+	str = 0;
 	len = 0;
 	fd = 0;
 	ret = 1;
