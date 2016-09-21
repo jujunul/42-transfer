@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/19 15:39:16 by juthierr          #+#    #+#             */
-/*   Updated: 2016/09/21 17:53:51 by bbeldame         ###   ########.fr       */
+/*   Updated: 2016/09/21 18:34:28 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		ft_puterr(char *str, int i)
 void		ft_printerror(void)
 {
 	ft_puterr("map error\n", 2);
+	g_cani = 0;
 }
 
 char		*ft_parsingpara(char *str)
@@ -173,6 +174,7 @@ int			main(int ac, char **av)
 	{
 		while (i < ac)
 		{
+			g_cani = 1;
 			k = 1;
 			if ((fd = open(av[i], O_RDONLY)) < 0)
 				ft_printerror();
