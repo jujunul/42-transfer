@@ -6,7 +6,7 @@
 /*   By: bbeldame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 18:27:31 by bbeldame          #+#    #+#             */
-/*   Updated: 2016/09/21 22:14:19 by juthierr         ###   ########.fr       */
+/*   Updated: 2016/09/21 22:15:57 by bbeldame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void				*ft_realloc(void *old, int oldsize, int newsize);
 int					ft_strlen(char *str);
 void				ft_printerror(void);
 char				*ft_parsingpara(char *str);
-int					ft_parsingtab(char *str, t_infomap *im, int columns);
+int					*ft_parsingtab(char *str, t_infomap *im, int columns);
 int					ft_columns(char *str, t_infomap *im);
 
 #endif
